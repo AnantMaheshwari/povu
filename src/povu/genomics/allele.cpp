@@ -1,6 +1,5 @@
 #include "povu/genomics/allele.hpp"
 
-#include <cstdint>
 #include <cstdlib>	  // for exit, EXIT_FAILURE
 #include <liteseq/refs.h> // for ref_walk, ref
 #include <map>		  // for map
@@ -8,14 +7,14 @@
 
 #include "povu/common/core.hpp"
 #include "povu/common/log.hpp"
-#include "povu/genomics/graph.hpp" // for RoV, pgt
 #include "povu/graph/types.hpp"
 
 namespace povu::genomics::allele
 {
 namespace lq = liteseq;
 
-bool is_contained(std::vector<pt::slice_t> ref_slices, pt::slice_t ref_slice)
+bool is_contained(const std::vector<pt::slice_t> &ref_slices,
+		  pt::slice_t ref_slice)
 {
 	for (const pt::slice_t &s : ref_slices) {
 

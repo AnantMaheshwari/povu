@@ -14,7 +14,7 @@
 #include "povu/common/compat.hpp"    // for contains, pv_cmp
 #include "povu/common/core.hpp"	     // for pt, idx_t, id_t, op_t
 #include "povu/common/log.hpp"	     // for ERR
-#include "povu/genomics/graph.hpp"   // for RoV
+#include "povu/genomics/rov.hpp"     // for RoV
 #include "povu/graph/bidirected.hpp" // for bd, VG
 #include "povu/graph/pvst.hpp"	     // for VertexBase
 #include "povu/graph/types.hpp"	     // for or_e, id_or_t, walk_t
@@ -146,7 +146,7 @@ struct itn_t {
 class Exp
 {
 	// pointer to the RoV from which the expedition is made
-	const povu::genomics::graph::RoV *rov_;
+	const pgr::RoV *rov_;
 
 	// map of ref_id to the itinerary (set of walks) of the ref in a RoV
 	// when tangled, a ref can have multiple walks in a RoV
@@ -170,7 +170,7 @@ public:
 	Exp() : rov_(nullptr), ref_itns_(), walk_idx_to_ref_idxs_(), aln_()
 	{}
 
-	Exp(const povu::genomics::graph::RoV *rov)
+	Exp(const pgr::RoV *rov)
 	    : rov_(rov), ref_itns_(), walk_idx_to_ref_idxs_(), aln_()
 	{
 		if (this->rov_ == nullptr) {
@@ -232,7 +232,7 @@ public:
 	}
 
 	[[nodiscard]]
-	const povu::genomics::graph::RoV *get_rov() const
+	const pgr::RoV *get_rov() const
 	{
 		return this->rov_;
 	}

@@ -18,16 +18,16 @@
 #include "povu/common/thread.hpp"	   // for thread_pool, task_group
 #include "povu/common/utils.hpp"	   // for comp_prog, pu
 #include "povu/genomics/allele.hpp"	   // for Exp, comp_itineraries
-#include "povu/genomics/graph.hpp"	   // for RoV, find_walks, pgt
-#include "povu/genomics/rov.hpp"	   // for gen_rov
-#include "povu/genomics/untangle.hpp"	   // for untangle_ref_walks
-#include "povu/genomics/vcf.hpp"	   // for VcfRecIdx, gen_vcf_records
+// #include "povu/genomics/graph.hpp"	   // for RoV, find_walks, pgt
+#include "povu/genomics/rov.hpp"      // for RoV, gen_rov
+#include "povu/genomics/untangle.hpp" // for untangle_ref_walks
+#include "povu/genomics/vcf.hpp"      // for VcfRecIdx, gen_vcf_records
 
 namespace povu::genomics
 {
 using namespace povu::progress;
 namespace pga = povu::genomics::allele;
-namespace pgg = povu::genomics::graph;
+// namespace pgg = povu::genomics::graph;
 namespace pgv = povu::genomics::vcf;
 namespace put = povu::genomics::untangle;
 namespace pvst = povu::pvst;
@@ -35,7 +35,7 @@ namespace pvst = povu::pvst;
 /**
  * Associate walks in an RoV with references
  */
-pga::Exp exp_frm_rov(const bd::VG &g, const pgg::RoV &rov)
+pga::Exp exp_frm_rov(const bd::VG &g, const pgr::RoV &rov)
 {
 	pga::Exp exp(&rov);
 	pga::comp_itineraries(g, exp);
@@ -46,7 +46,7 @@ pga::Exp exp_frm_rov(const bd::VG &g, const pgg::RoV &rov)
 }
 
 std::vector<pga::Exp> comp_expeditions_work_steal(
-	const bd::VG &g, const std::vector<pgg::RoV> &all_rovs, pt::idx_t start,
+	const bd::VG &g, const std::vector<pgr::RoV> &all_rovs, pt::idx_t start,
 	pt::idx_t count, povu::thread::thread_pool &pool,
 	std::size_t outer_concurrency, std::size_t reserve_for_inner)
 {
@@ -98,7 +98,7 @@ std::vector<pga::Exp> comp_expeditions_work_steal(
 						// - Pass the RoV element
 						// directly: do NOT make a local
 						// copy like
-						//   `pgg::RoV rov =
+						//   `pgr::RoV rov =
 						//   all_rovs[gi];` and then
 						//   take &rov — that would
 						//   dangle.
@@ -160,7 +160,7 @@ void gen_vcf_rec_map(const std::vector<pvst::Tree> &pvsts, bd::VG &g,
 		     DynamicProgress<ProgressBar> &prog, std::size_t prog_idx,
 		     const core::config &app_config)
 {
-	std::vector<pgg::RoV> all_rovs = pgr::gen_rov(pvsts, g, app_config);
+	std::vector<pgr::RoV> all_rovs = pgr::gen_rov(pvsts, g, app_config);
 
 	const std::size_t CHUNK_SIZE = app_config.get_chunk_size();
 	const std::size_t N = all_rovs.size();

@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
+#include <ostream>
 #include <sys/types.h>
 #include <tuple>
 
@@ -25,6 +26,21 @@ struct slice_t {
 
 	slice_t(idx_t start, idx_t len) : start{start}, len{len}
 	{}
+
+	friend bool operator==(const slice_t &s1, const slice_t &s2)
+	{
+		return s1.start == s2.start && s1.len == s2.len;
+	}
+
+	friend bool operator!=(const slice_t &s1, const slice_t &s2)
+	{
+		return !(s1 == s2);
+	}
+
+	friend std::ostream &operator<<(std::ostream &os, const slice_t &s)
+	{
+		return os << "(" << s.start << "," << s.len << ")";
+	}
 };
 
 /**
