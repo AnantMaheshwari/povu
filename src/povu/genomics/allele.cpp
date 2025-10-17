@@ -1,5 +1,7 @@
 #include "povu/genomics/allele.hpp"
 
+#include <csignal> // for raise, SIGINT
+
 #include <cstdlib>	  // for exit, EXIT_FAILURE
 #include <liteseq/refs.h> // for ref_walk, ref
 #include <map>		  // for map
@@ -7,6 +9,8 @@
 
 #include "povu/common/core.hpp"
 #include "povu/common/log.hpp"
+#include "povu/common/utils.hpp"
+#include "povu/genomics/rov.hpp"
 #include "povu/graph/types.hpp"
 
 namespace povu::genomics::allele
@@ -17,7 +21,6 @@ bool is_contained(const std::vector<pt::slice_t> &ref_slices,
 		  pt::slice_t ref_slice)
 {
 	for (const pt::slice_t &s : ref_slices) {
-
 		// check if is prefix
 		if (s.start == ref_slice.start && s.len > ref_slice.len) {
 			return true;
@@ -34,11 +37,6 @@ bool is_contained(const std::vector<pt::slice_t> &ref_slices,
 		    s.start + s.len < ref_slice.start + ref_slice.len) {
 			return true;
 		}
-
-		// if (s.start <= ref_slice.start && s.start + s.len >=
-		// ref_slice.start + ref_slice.len) {
-		//   return false;
-		// }
 	}
 
 	return false;
@@ -148,17 +146,15 @@ void run_conv(pt::idx_t ref_idx, const lq::ref_walk *ref_w,
 					    ref_or});
 			walk_to_refs[w_idx].insert(ref_idx);
 
-			if (ref_itns.at_count() > 1) {
+			if (ref_itns.at_count() > 1)
 				is_tangled = true;
-			}
 		}
 	}
 }
 
 bool comp_overlays(const bd::VG &g, const pgt::walk_t &w, pt::idx_t w_idx,
 		   std::map<pt::id_t, itn_t> &ref_map,
-		   std::map<pt::idx_t, std::set<pt::idx_t>> &walk_to_refs,
-		   const std::string &id)
+		   std::map<pt::idx_t, std::set<pt::idx_t>> &walk_to_refs)
 {
 	bool is_tangled{false};
 	const pt::idx_t W_LEN = w.size();
@@ -191,30 +187,189 @@ bool comp_overlays(const bd::VG &g, const pgt::walk_t &w, pt::idx_t w_idx,
 	return is_tangled;
 }
 
-void comp_itineraries(const bd::VG &g, Exp &exp)
+pt::u32 overlay_leftwards(const lq::ref_walk *ref_w, const pgt::walk_t &graph_w,
+			  const std::vector<pt::idx_t> &vtx_ref_idxs,
+			  pt::u32 ref_w_start_idx, pt::u32 graph_w_start_idx,
+			  pt::u32 len)
 {
 
+	pt::u32 valid_len{0};
+	for (pt::u32 i{}; i < len; i++) {
+		pt::idx_t ref_w_idx = ref_w_start_idx + i;
+		pt::idx_t graph_w_idx = graph_w_start_idx + i;
+
+		pt::idx_t ref_v_id = ref_w->v_ids[ref_w_idx];
+		pgt::or_e ref_o =
+			ref_w->strands[ref_w_idx] == lq::strand::STRAND_FWD
+				? pgt::or_e::forward
+				: pgt::or_e::reverse;
+
+		//  auto [ref_v_id, ref_o, _] = ref_w[ref_w_idx];
+		auto [w_v_id, w_o] = graph_w[graph_w_idx];
+
+		if (ref_v_id != w_v_id || ref_o != w_o)
+			break;
+
+		valid_len++;
+	}
+	return valid_len;
+}
+
+struct overlay_t {
+	pt::idx_t graph_w_start_idx;
+	pt::idx_t ref_start_idx;
+	pt::idx_t len;
+	ptg::or_e slice_or;
+};
+
+/**
+ * [out] walk_to_refs: map of walk idx to ref idxs that take the walk
+ */
+std::map<pt::u32, std::vector<overlay_t>>
+overlay(const bd::VG &g, const pgt::walk_t &graph_w,
+	const std::vector<pgr::raw_variant> &variants, pt::u8 sl_idx,
+	const std::string &id)
+{
+	std::map<pt::u32, std::vector<overlay_t>> ref_to_overlays;
+
+	const pt::u32 GRAPH_W_LEN = graph_w.size();
+	const pt::u32 REF_COUNT = g.get_ref_count();
+
+	for (pt::u32 ref_idx{}; ref_idx < REF_COUNT; ref_idx++) {
+		const lq::ref_walk *ref_w = g.get_ref_vec(ref_idx)->walk;
+		for (const pgr::raw_variant &v : variants) {
+			auto [sl_a, sl_b, vt_] = v;
+			auto [start, len] = sl_idx == 0 ? sl_a : sl_b;
+			pgr::var_type_e vt =
+				sl_idx == 0 ? vt_ : pgr::covariant(vt_);
+
+			// look at the end of an insertion
+			if (len == 0 && vt == pgr::var_type_e::ins)
+				len++;
+
+			pt::u32 N = start + len;
+			for (pt::u32 i{start}; i < N; i++) {
+				pt::idx_t slice_len = N - i;
+
+				if (i > GRAPH_W_LEN)
+					continue;
+
+				auto [v_id, o] = graph_w.at(i);
+				pt::idx_t v_idx = g.v_id_to_idx(v_id);
+
+				const std::vector<pt::idx_t> &vtx_ref_idxs =
+					g.get_vertex_ref_idxs(v_idx, ref_idx);
+
+				for (pt::u32 ref_w_start_idx : vtx_ref_idxs) {
+					pt::u32 valid_len = overlay_leftwards(
+						ref_w, graph_w, vtx_ref_idxs,
+						ref_w_start_idx, i, slice_len);
+
+					if (valid_len > 1) {
+						overlay_t o{i, ref_w_start_idx,
+							    valid_len,
+							    pgt::or_e::forward};
+
+						ref_to_overlays[ref_idx]
+							.push_back(o);
+					}
+				}
+			}
+		}
+	}
+
+	return ref_to_overlays;
+}
+
+/**
+ * [out] rov_exps: vector of expeditions, one per pairwise variant set
+ */
+void comp_overlays2(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
+		    const std::vector<pgr::pairwise_variants> &pv,
+		    const pgr::RoV *rov, std::vector<Exp> &rov_exps)
+{
+
+	std::cerr << "co2 " << rov->as_str() << "\n";
+
+	auto foo = [&](const std::map<pt::u32, std::vector<overlay_t>> &x,
+		       pt::u32 w_idx, std::map<pt::id_t, itn_t> &ref_map,
+		       std::map<pt::idx_t, std::set<pt::idx_t>> &walk_to_refs)
+	{
+		for (const auto &[ref_idx, overlays] : x) {
+			walk_to_refs[w_idx].insert(ref_idx);
+			itn_t &itn = ref_map[ref_idx];
+			for (const auto &o : overlays) {
+				itn.append_at(allele_slice_t{
+					&walks.at(w_idx),
+					w_idx,
+					o.graph_w_start_idx,
+					g.get_ref_vec(ref_idx)->walk,
+					ref_idx,
+					o.ref_start_idx,
+					o.len,
+					o.slice_or,
+				});
+			}
+		}
+	};
+
+	for (const rov::pairwise_variants &p : pv) {
+		Exp e(rov);
+		std::map<pt::id_t, itn_t> &ref_map = e.get_ref_itns_mut();
+		std::map<pt::idx_t, std::set<pt::idx_t>> &walk_to_refs =
+			e.get_walk_to_ref_idxs_mut();
+
+		auto [w1_idx, w2_idx, variants] = p;
+
+		auto x = overlay(g, walks.at(w1_idx), variants, 0,
+				 rov->as_str());
+		foo(x, w1_idx, ref_map, walk_to_refs);
+
+		auto y = overlay(g, walks.at(w2_idx), variants, 1,
+				 rov->as_str());
+		foo(y, w2_idx, ref_map, walk_to_refs);
+
+		rov_exps.emplace_back(std::move(e));
+	}
+
+	return;
+}
+
+std::vector<Exp> comp_itineraries2(const bd::VG &g, const pgr::RoV &rov)
+{
+	const std::vector<pgt::walk_t> &walks = rov.get_walks();
+	const std::vector<pgr::pairwise_variants> &pv = rov.get_irreducibles();
+	const pgr::RoV *rov_ = &rov;
+
+	if (pv.empty()) {
+		ERR("No pairwise variants in RoV {}", rov.as_str());
+		std::exit(EXIT_FAILURE);
+	}
+
+	std::vector<Exp> rov_exps;
+	comp_overlays2(g, walks, pv, rov_, rov_exps);
+	return rov_exps;
+}
+
+void comp_itineraries(const bd::VG &g, Exp &exp)
+{
 	if (exp.get_rov() == nullptr) {
 		ERR("RoV pointer is null");
 		std::exit(EXIT_FAILURE);
 	}
-
-	// bool dbg = exp.id() == ">3645>3647" ? true : false;
 
 	const std::vector<pgt::walk_t> &walks = exp.get_rov()->get_walks();
 	std::map<pt::id_t, itn_t> &ref_map = exp.get_ref_itns_mut();
 	std::map<pt::idx_t, std::set<pt::idx_t>> &walk_to_refs =
 		exp.get_walk_to_ref_idxs_mut();
 
+	const std::vector<pgr::pairwise_variants> &pv =
+		exp.get_rov()->get_irreducibles();
+
 	for (pt::idx_t w_idx = 0; w_idx < walks.size(); ++w_idx) {
 
-		// if (dbg) {
-		//   INFO("{}", pgt::to_string(walks[w_idx]));
-		// }
-
-		bool is_tangled =
-			comp_overlays(g, walks.at(w_idx), w_idx, ref_map,
-				      walk_to_refs, exp.id());
+		bool is_tangled = comp_overlays(g, walks.at(w_idx), w_idx,
+						ref_map, walk_to_refs);
 		if (is_tangled)
 			exp.set_tangled(true);
 

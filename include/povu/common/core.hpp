@@ -16,6 +16,7 @@ typedef u_int32_t id_t;
 typedef u_int32_t idx_t;
 
 /* type aliases for fixed width types */
+using u8 = u_int8_t;
 using u32 = u_int32_t;
 using status_t = int8_t;			 // return status of a fn
 using Time = std::chrono::high_resolution_clock; // C++ timer

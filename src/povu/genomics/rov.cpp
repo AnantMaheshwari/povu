@@ -1,9 +1,7 @@
 #include "povu/genomics/rov.hpp"
-#include <algorithm> // for min, max
-#include <atomic>    // for atomic, memory_order
-#include <cmath>     // for ceil
-#include <cstddef>   // for size_t
-#include <cstdlib>
+
+#include <cstddef>  // for size_t
+#include <cstdlib>  // for exit, EXIT_FAILURE
 #include <iterator> // for back_insert_iterator, bac...
 #include <map>	    // for map
 #include <optional> // for optional, operator==
@@ -16,15 +14,15 @@
 #include "povu/common/app.hpp"	  // for config
 #include "povu/common/constants.hpp"
 #include "povu/common/core.hpp" // for pt
-#include "povu/common/log.hpp"
+// #include "povu/common/log.hpp"
 #include "povu/common/progress.hpp" // for set_progress_bar_com...
-#include "povu/common/utils.hpp"
+// #include "povu/common/utils.hpp"
 #include "povu/genomics/graph.hpp" // for RoV, find_walks, pgt
 // #include "povu/genomics/vcf.hpp"
 #include "povu/graph/pvst.hpp" // for Tree, VertexBase
 #include "povu/graph/types.hpp"
 
-#include "povu/common/utils.hpp" // for print_with_comma
+// #include "povu/common/utils.hpp" // for print_with_comma
 
 namespace povu::genomics::rov
 {
@@ -37,6 +35,26 @@ constexpr var_type_e del = var_type_e::del;
 constexpr var_type_e sub = var_type_e::sub;
 
 // ------------
+
+std::ostream &operator<<(std::ostream &os, var_type_e vt)
+{
+	return os << to_string_view(vt);
+}
+
+var_type_e covariant(var_type_e a) noexcept
+{
+	switch (a) {
+	case var_type_e::ins:
+		return var_type_e::del;
+	case var_type_e::del:
+		return var_type_e::ins;
+	case var_type_e::sub:
+		return var_type_e::sub;
+	default:
+		return var_type_e::und;
+	}
+}
+
 bool is_valid(pt::u32 i)
 {
 	return i != pc::INVALID_IDX;
@@ -68,7 +86,7 @@ std::vector<pt::u32> comp_lookup(const ptg::walk_t &w,
 	return lu;
 }
 
-pt::slice_t find_context(std::vector<pt::u32> &w, pt::u32 i)
+pt::slice_t find_context(const std::vector<pt::u32> &w, pt::u32 i)
 {
 	pt::u32 left = i;
 	pt::u32 right = i + 1;
@@ -79,75 +97,93 @@ pt::slice_t find_context(std::vector<pt::u32> &w, pt::u32 i)
 	return {left, right - left};
 }
 
-std::pair<std::vector<pt::slice_t>, std::vector<var_type_e>>
-find_rovs(std::vector<pt::u32> lu)
+void find_rovs(const std::vector<pt::u32> &lu, pairwise_variants &pv)
 {
-	std::vector<pt::slice_t> slices;
-	std::vector<var_type_e> var_types;
+	auto is_ins = [&](pt::u32 i, const pt::slice_t &sl) -> bool
+	{
+		return (i > 0) && (lu[i + sl.len] - lu[i - 1] == 1);
+	};
+
+	auto is_del = [&](pt::u32 i) -> bool
+	{
+		return i > 0 && is_valid(lu[i - 1]) && is_valid(lu[i]) &&
+		       lu[i] - lu[i - 1] != 1;
+	};
+
+	auto find_alt_start = [&](const pt::slice_t &sl, var_type_e t,
+				  pt::u32 i) -> pt::slice_t
+	{
+		pt::u32 alt_len = t == ins ? 0 : lu[i + sl.len] - lu[i - 1];
+		pt::u32 alt_start = lu[i - 1];
+
+		if (t == sub || alt_start == 0) {
+			alt_len--;
+			alt_start++;
+		}
+
+		return {alt_start, alt_len};
+	};
 
 	// because we move left to right we will always
 	// start with the leftmost side of the slice
 	for (pt::u32 i{}; i < lu.size();) {
-		if (!is_valid(lu[i])) {
+		if (!is_valid(lu[i])) { // sub or ins
 			pt::slice_t sl = find_context(lu, i);
-			auto t = (i > 0) && (lu[i + sl.len] - lu[i - 1] == 1)
-					 ? ins
-					 : sub;
-
-			var_types.push_back(t);
-			slices.push_back(sl);
+			var_type_e t = is_ins(i, sl) ? ins : sub;
+			pt::slice_t alt_sl = find_alt_start(sl, t, i);
+			pv.add_variant({sl, alt_sl, t});
 			i += sl.len;
 			continue;
 		}
 
 		// del
-		if (i > 0 && is_valid(lu[i - 1]) && is_valid(lu[i]) &&
-		    lu[i] - lu[i - 1] != 1) {
-			slices.emplace_back(i - 1, lu[i] - lu[i - 1] - 1);
-			var_types.emplace_back(var_type_e::del);
+		if (is_del(i)) {
+			pt::slice_t sl{i - 1, 0};
+			pt::slice_t alt_sl = {lu[i - 1] + 1,
+					      lu[i] - lu[i - 1] - 1};
+			pv.add_variant({sl, alt_sl, del});
 		}
 
 		i++;
 	}
-
-	return {std::move(slices), std::move(var_types)};
 }
 
-pt::op_t<std::pair<std::vector<pt::slice_t>, std::vector<var_type_e>>>
-lineup_pairs(const ptg::walk_t &w1, const ptg::walk_t &w2)
+pairwise_variants lineup_pairs(const ptg::walk_t &w1, const ptg::walk_t &w2,
+			       pairwise_variants &pv)
 {
-	std::map<ptg::step_t, pt::u32> pos_map1 = positions(w1);
+	// std::map<ptg::step_t, pt::u32> pos_map1 = positions(w1);
 	std::map<ptg::step_t, pt::u32> pos_map2 = positions(w2);
 
 	std::vector<pt::u32> lu1 = comp_lookup(w1, pos_map2);
-	std::vector<pt::u32> lu2 = comp_lookup(w2, pos_map1);
+	// std::vector<pt::u32> lu2 = comp_lookup(w2, pos_map1);
 
-	auto rovs1 = find_rovs(lu1);
-	auto rovs2 = find_rovs(lu2);
+	find_rovs(lu1, pv);
+	// find_rovs(lu2, true, pv);
 
-	return {rovs1, rovs2};
+	return pv;
+}
+
+pairwise_variants compare_pair(const RoV &r, pt::u32 i, pt::u32 j)
+{
+
+	pairwise_variants pv(i, j);
+	lineup_pairs(r.get_walk(i), r.get_walk(j), pv);
+
+	return pv;
 }
 
 void find_hidden(RoV &r)
 {
-	auto compare_pair = [&](pt::u32 i, pt::u32 j)
-	{
-		auto [a, b] = lineup_pairs(r.get_walk(i), r.get_walk(j));
-		if (!a.first.empty())
-			r.add_extra({{i, j}, a.first, a.second});
-		if (!b.first.empty())
-			r.add_extra({{j, i}, b.first, b.second});
-	};
-
+	const pt::u32 WC = r.walk_count();
 	std::set<pt::up_t<pt::u32>> seen;
-	for (pt::u32 i{}; i < r.walk_count(); i++) {
-		for (pt::u32 j{}; j < r.walk_count(); j++) {
+	for (pt::u32 i{}; i < WC; i++) {
+		for (pt::u32 j{}; j < WC; j++) {
 			auto p = pt::up_t<pt::u32>{i, j};
 
 			if (i == j || pv_cmp::contains(seen, p))
 				continue; // skip self or already seen
 
-			compare_pair(i, j);
+			r.add_irreducible(compare_pair(r, i, j));
 			seen.insert(p);
 		}
 	}
@@ -210,8 +246,7 @@ void eval_vertex(const bd::VG &g, const pvst::Tree &pvst, pt::u32 pvst_v_idx,
 			return;
 
 		find_hidden(r);
-
-		rs.push_back(std::move(r));
+		rs.emplace_back(std::move(r));
 	}
 }
 

@@ -9,6 +9,7 @@
 #include <optional> // for optional, operator==
 #include <string>   // for basic_string, string
 #include <utility>  // for move
+#include <vector>
 
 #include "fmt/core.h"			   // for format_to
 #include "fmt/format.h"			   // for vformat_to
@@ -43,6 +44,40 @@ pga::Exp exp_frm_rov(const bd::VG &g, const pgr::RoV &rov)
 		put::untangle_ref_walks(exp);
 
 	return exp;
+}
+
+std::vector<pga::Exp>
+comp_expeditions_serial(const bd::VG &g, const std::vector<pgr::RoV> &all_rovs,
+			pt::idx_t start, pt::idx_t count)
+{
+	const std::size_t N = all_rovs.size();
+	std::vector<pga::Exp> all_exp;
+	all_exp.reserve(N * 2);
+
+	for (pt::idx_t i = start; i < start + count && i < N; ++i) {
+		const pgr::RoV &rov = all_rovs[i];
+		std::vector<pga::Exp> rov_exps = pga::comp_itineraries2(g, rov);
+		for (auto &e : rov_exps) {
+			if (e.is_tangled())
+				put::untangle_ref_walks(e);
+
+			all_exp.emplace_back(std::move(e));
+		}
+	}
+
+	// for (const auto &rov : all_rovs) {
+	//	std::vector<pga::Exp> rov_exps = pga::comp_itineraries2(g, rov);
+	//	for (auto &e : rov_exps) {
+	//		if (e.is_tangled())
+	//			put::untangle_ref_walks(e);
+
+	//		all_exp.emplace_back(std::move(e));
+	//	}
+	// }
+
+	all_exp.shrink_to_fit();
+
+	return all_exp;
 }
 
 std::vector<pga::Exp> comp_expeditions_work_steal(
@@ -196,8 +231,11 @@ void gen_vcf_rec_map(const std::vector<pvst::Tree> &pvsts, bd::VG &g,
 					chunk_num + 1, CHUNK_COUNT));
 			}
 
-			exps = comp_expeditions_work_steal(
-				g, all_rovs, base, count, pool, outer, inner);
+			exps = comp_expeditions_serial(g, all_rovs, base,
+						       count);
+
+			// exps = comp_expeditions_work_steal(
+			//	g, all_rovs, base, count, pool, outer, inner);
 
 			pgv::VcfRecIdx rs =
 				pgv::gen_vcf_records(g, exps, to_call_ref_ids);

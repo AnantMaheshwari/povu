@@ -179,15 +179,15 @@ public:
 		}
 	}
 
-	// disable copy constructor
-	Exp(const Exp &other) = delete;
-	Exp &operator=(const Exp &other) = delete;
+	// // disable copy constructor
+	// Exp(const Exp &other) = delete;
+	// Exp &operator=(const Exp &other) = delete;
 
-	// move constructor
-	Exp(Exp &&other) noexcept = default;
-	Exp &operator=(Exp &&other) noexcept = default;
+	// // move constructor
+	// Exp(Exp &&other) noexcept = default;
+	// Exp &operator=(Exp &&other) noexcept = default;
 
-	~Exp() = default;
+	// ~Exp() = default;
 
 	// ---------
 	// getter(s)
@@ -312,6 +312,7 @@ public:
 	}
 };
 
+std::vector<Exp> comp_itineraries2(const bd::VG &g, const pgr::RoV &rov);
 void comp_itineraries(const bd::VG &g, Exp &exp);
 
 } // namespace povu::genomics::allele

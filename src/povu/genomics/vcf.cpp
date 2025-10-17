@@ -87,6 +87,8 @@ std::map<pt::idx_t, std::vector<VcfRec>>
 gen_exp_vcf_recs(const bd::VG &g, const pga::Exp &exp,
 		 const std::set<pt::id_t> &to_call_ref_ids)
 {
+	std::cerr << "gen rec: " << exp.id() << "\n";
+
 	std::map<pt::idx_t, std::vector<VcfRec>> exp_vcf_recs;
 
 	if (exp.get_rov() == nullptr) {
