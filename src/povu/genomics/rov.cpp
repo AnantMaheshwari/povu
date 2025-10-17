@@ -117,7 +117,8 @@ void find_rovs(const std::vector<pt::u32> &lu, pairwise_variants &pv)
 		pt::u32 alt_start = lu[i - 1];
 
 		if (t == sub || alt_start == 0) {
-			alt_len--;
+			if (t != ins)
+				alt_len--;
 			alt_start++;
 		}
 

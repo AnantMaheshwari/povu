@@ -44,8 +44,10 @@ class VcfRec
 	inline static const std::string format = "GT";	 // fixed as pass
 
 	pt::idx_t height_; // height of the pvst node in the tree
-	pgr::var_type_e
-		var_type_; // type of the variant, e.g. del, ins, sub, und
+
+	// type of the variant, e.g. del, ins, sub, und
+	pgr::var_type_e var_type_;
+
 	bool is_tangled_ = false; // is true when tangling exists, i.e. when a
 				  // walk traverses an RoV more than once
 

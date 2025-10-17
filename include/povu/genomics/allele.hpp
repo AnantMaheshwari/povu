@@ -38,6 +38,7 @@ struct allele_slice_t {
 
 	pt::idx_t len; // total step count in the itinerary
 	ptg::or_e slice_or;
+	pgr::var_type_e vt;
 
 	// ---------
 	// getter(s)

@@ -1,7 +1,9 @@
 #include "povu/genomics/vcf.hpp"
 
 #include <iterator> // for pair
+#include <vector>
 
+#include "povu/common/core.hpp"
 #include "povu/genomics/allele.hpp" // for Exp, allele_slice_t, itn_t
 #include "povu/genomics/graph.hpp"  // for RoV
 #include "povu/graph/pvst.hpp"	    // for VertexBase
@@ -87,7 +89,7 @@ std::map<pt::idx_t, std::vector<VcfRec>>
 gen_exp_vcf_recs(const bd::VG &g, const pga::Exp &exp,
 		 const std::set<pt::id_t> &to_call_ref_ids)
 {
-	std::cerr << "gen rec: " << exp.id() << "\n";
+	// std::cerr << "gen rec: " << exp.id() << ": ";
 
 	std::map<pt::idx_t, std::vector<VcfRec>> exp_vcf_recs;
 
@@ -123,8 +125,10 @@ gen_exp_vcf_recs(const bd::VG &g, const pga::Exp &exp,
 
 	std::map<std::pair<pt::idx_t, pgr::var_type_e>, VcfRec>
 		var_type_to_vcf_rec;
+	std::vector<pt::op_t<pt::id_t>> ref_pairs = pre_comp_ref_pairs();
+	// std::cerr << "ref pairs size: " << ref_pairs.size() << "\n";
 
-	for (auto [ref_ref_id, alt_ref_id] : pre_comp_ref_pairs()) {
+	for (auto [ref_ref_id, alt_ref_id] : ref_pairs) {
 		const pga::itn_t &ref_itn = exp.get_itn(ref_ref_id);
 		const pga::itn_t &alt_itn = exp.get_itn(alt_ref_id);
 
@@ -167,7 +171,7 @@ gen_exp_vcf_recs(const bd::VG &g, const pga::Exp &exp,
 					       exp.id(),
 					       ref_allele_slice,
 					       pvst_vtx_ptr->get_height(),
-					       variant_type,
+					       ref_allele_slice.vt,
 					       exp.is_tangled(),
 					       ref_walk_ref_count,
 					       g.get_blank_genotype_cols()};

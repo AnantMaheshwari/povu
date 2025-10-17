@@ -2,6 +2,7 @@
 
 #include <csignal> // for raise, SIGINT
 
+#include <cstdio>
 #include <cstdlib>	  // for exit, EXIT_FAILURE
 #include <liteseq/refs.h> // for ref_walk, ref
 #include <map>		  // for map
@@ -16,6 +17,10 @@
 namespace povu::genomics::allele
 {
 namespace lq = liteseq;
+
+constexpr pgr::var_type_e ins = pgr::var_type_e::ins;
+constexpr pgr::var_type_e del = pgr::var_type_e::del;
+constexpr pgr::var_type_e sub = pgr::var_type_e::sub;
 
 bool is_contained(const std::vector<pt::slice_t> &ref_slices,
 		  pt::slice_t ref_slice)
@@ -220,17 +225,22 @@ struct overlay_t {
 	pt::idx_t ref_start_idx;
 	pt::idx_t len;
 	ptg::or_e slice_or;
+	pgr::var_type_e vt;
 };
+
+const pt::u8 SLICE_A_IDX{0};
+const pt::u8 SLICE_B_IDX{1};
 
 /**
  * [out] walk_to_refs: map of walk idx to ref idxs that take the walk
  */
 std::map<pt::u32, std::vector<overlay_t>>
 overlay(const bd::VG &g, const pgt::walk_t &graph_w,
-	const std::vector<pgr::raw_variant> &variants, pt::u8 sl_idx,
-	const std::string &id)
+	const std::vector<pgr::raw_variant> &variants, pt::u8 sl_idx)
 {
 	std::map<pt::u32, std::vector<overlay_t>> ref_to_overlays;
+
+	std::string w_str = pgt::to_string(graph_w);
 
 	const pt::u32 GRAPH_W_LEN = graph_w.size();
 	const pt::u32 REF_COUNT = g.get_ref_count();
@@ -239,16 +249,58 @@ overlay(const bd::VG &g, const pgt::walk_t &graph_w,
 		const lq::ref_walk *ref_w = g.get_ref_vec(ref_idx)->walk;
 		for (const pgr::raw_variant &v : variants) {
 			auto [sl_a, sl_b, vt_] = v;
-			auto [start, len] = sl_idx == 0 ? sl_a : sl_b;
-			pgr::var_type_e vt =
-				sl_idx == 0 ? vt_ : pgr::covariant(vt_);
+			auto [start, len] = sl_idx == SLICE_A_IDX ? sl_a : sl_b;
+			pgr::var_type_e vt = sl_idx == SLICE_A_IDX
+						     ? vt_
+						     : pgr::covariant(vt_);
+			pgr::var_type_e overlay_vt = vt;
 
 			// look at the end of an insertion
-			if (len == 0 && vt == pgr::var_type_e::ins)
-				len++;
+			// if (len == 0 && vt == pgr::var_type_e::ins)
+			//	len++;
 
+			pt::u32 i{start};
 			pt::u32 N = start + len;
-			for (pt::u32 i{start}; i < N; i++) {
+			if (sl_idx == SLICE_A_IDX) {
+				if (vt == sub || vt == ins) {
+					N++;
+					i--;
+				}
+				else if (vt == del) {
+					N++;
+				}
+			}
+			else { // SLICE_B_IDX
+				if (vt == sub) {
+					N++;
+					i--;
+				}
+				else if (vt == ins) {
+					N++;
+				}
+				else if (vt == del) {
+					N++;
+					i--;
+				}
+			}
+
+			// pgr::var_type_e overlay_vt;
+			// if (vt == pgr::var_type_e::sub)
+			//	overlay_vt = pgr::var_type_e::sub;
+			// else if (vt == pgr::var_type_e::ins)
+			//	if (sl_idx == SLICE_A_IDX)
+			//		overlay_vt = pgr::var_type_e::ins;
+			//	else
+			//		overlay_vt = pgr::covariant(vt);
+			// else if (vt == pgr::var_type_e::del)
+			//	if (sl_idx == SLICE_A_IDX)
+			//		overlay_vt = pgr::var_type_e::del;
+			//	else
+			//		overlay_vt = pgr::covariant(vt);
+
+			// std::cerr << "i " << i << " N " << N << "\n";
+
+			for (; i < N; i++) {
 				pt::idx_t slice_len = N - i;
 
 				if (i > GRAPH_W_LEN)
@@ -260,6 +312,11 @@ overlay(const bd::VG &g, const pgt::walk_t &graph_w,
 				const std::vector<pt::idx_t> &vtx_ref_idxs =
 					g.get_vertex_ref_idxs(v_idx, ref_idx);
 
+				// if (!vtx_ref_idxs.empty())
+				//	std::cerr << "found vtx ref id" << v_id
+				//		  << " ref_idx " << ref_idx
+				//		  << "\n";
+
 				for (pt::u32 ref_w_start_idx : vtx_ref_idxs) {
 					pt::u32 valid_len = overlay_leftwards(
 						ref_w, graph_w, vtx_ref_idxs,
@@ -268,7 +325,8 @@ overlay(const bd::VG &g, const pgt::walk_t &graph_w,
 					if (valid_len > 1) {
 						overlay_t o{i, ref_w_start_idx,
 							    valid_len,
-							    pgt::or_e::forward};
+							    pgt::or_e::forward,
+							    overlay_vt};
 
 						ref_to_overlays[ref_idx]
 							.push_back(o);
@@ -288,9 +346,6 @@ void comp_overlays2(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 		    const std::vector<pgr::pairwise_variants> &pv,
 		    const pgr::RoV *rov, std::vector<Exp> &rov_exps)
 {
-
-	std::cerr << "co2 " << rov->as_str() << "\n";
-
 	auto foo = [&](const std::map<pt::u32, std::vector<overlay_t>> &x,
 		       pt::u32 w_idx, std::map<pt::id_t, itn_t> &ref_map,
 		       std::map<pt::idx_t, std::set<pt::idx_t>> &walk_to_refs)
@@ -300,15 +355,11 @@ void comp_overlays2(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 			itn_t &itn = ref_map[ref_idx];
 			for (const auto &o : overlays) {
 				itn.append_at(allele_slice_t{
-					&walks.at(w_idx),
-					w_idx,
+					&walks.at(w_idx), w_idx,
 					o.graph_w_start_idx,
-					g.get_ref_vec(ref_idx)->walk,
-					ref_idx,
-					o.ref_start_idx,
-					o.len,
-					o.slice_or,
-				});
+					g.get_ref_vec(ref_idx)->walk, ref_idx,
+					o.ref_start_idx, o.len, o.slice_or,
+					o.vt});
 			}
 		}
 	};
@@ -321,12 +372,10 @@ void comp_overlays2(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 
 		auto [w1_idx, w2_idx, variants] = p;
 
-		auto x = overlay(g, walks.at(w1_idx), variants, 0,
-				 rov->as_str());
+		auto x = overlay(g, walks.at(w1_idx), variants, SLICE_A_IDX);
 		foo(x, w1_idx, ref_map, walk_to_refs);
 
-		auto y = overlay(g, walks.at(w2_idx), variants, 1,
-				 rov->as_str());
+		auto y = overlay(g, walks.at(w2_idx), variants, SLICE_B_IDX);
 		foo(y, w2_idx, ref_map, walk_to_refs);
 
 		rov_exps.emplace_back(std::move(e));
