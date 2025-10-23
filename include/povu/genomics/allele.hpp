@@ -107,6 +107,17 @@ struct allele_slice_t {
 		pt::u32 i = ref_step_idx;
 		pt::u32 N = end;
 
+		switch (this->vt) {
+		case pgr::var_type_e::sub:
+			i++;
+			N--;
+			break;
+		case pgr::var_type_e::ins:
+		case pgr::var_type_e::del:
+			N--;
+			break;
+		}
+
 		for (i; i < N; i++)
 			s += this->get_step(i).as_str();
 

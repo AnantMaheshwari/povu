@@ -255,21 +255,21 @@ void pop_exp(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 				N = start + len;
 				as_walk_start_idx = start - 1;
 				as_ref_start_idx = ref_start_idx;
-				as_len = len + 1;
+				as_len = len + 1 + 1;
 				break;
 			case pgr::var_type_e::sub:
 				i = start - 1;
 				N = start + len;
-				as_walk_start_idx = start;
-				as_ref_start_idx = ref_start_idx + 1;
-				as_len = len;
+				as_walk_start_idx = start - 1;
+				as_ref_start_idx = ref_start_idx;
+				as_len = len + 1 + 1;
 				break;
 			case pgr::var_type_e::ins:
 				i = start;
 				N = start + 1; // len is 0 for insertions
 				as_walk_start_idx = start;
 				as_ref_start_idx = ref_start_idx;
-				as_len = 1;
+				as_len = 1 + 1;
 				break;
 			}
 
@@ -332,21 +332,21 @@ void pop_exp(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 				N = start + len;
 				as_walk_start_idx = start - 1;
 				as_ref_start_idx = ref_start_idx;
-				as_len = len + 1;
+				as_len = len + 1 + 1;
 				break;
 			case pgr::var_type_e::sub:
 				i = start - 1;
 				N = start + len;
-				as_walk_start_idx = start;
-				as_ref_start_idx = ref_start_idx + 1;
-				as_len = len;
+				as_walk_start_idx = start - 1;
+				as_ref_start_idx = ref_start_idx;
+				as_len = len + 1 + 1;
 				break;
 			case pgr::var_type_e::ins:
 				i = start;
 				N = start + 1; // len is 0 for insertions
 				as_walk_start_idx = start;
 				as_ref_start_idx = ref_start_idx;
-				as_len = 1;
+				as_len = 1 + 1;
 				break;
 			}
 

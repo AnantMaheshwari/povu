@@ -86,7 +86,7 @@ void write_rec(const bd::VG &g, pgv::VcfRec &r, const std::string &chrom,
 	       std::ostream &os)
 {
 
-	// bool dbg = (r.get_id() == ">6>8") ? true : false;
+	bool dbg = (r.get_id() == ">1542>1545") ? true : false;
 
 	pgr::var_type_e var_typ = r.get_var_type();
 
@@ -132,10 +132,14 @@ void write_rec(const bd::VG &g, pgv::VcfRec &r, const std::string &chrom,
 			auto lbl = get_label(s);
 			dna_str.push_back(is_fwd ? lbl.back() : lbl.front());
 			step_idx++;
+			end--;
 			break;
 		}
-		default:
+		case pgr::var_type_e::sub: {
+			step_idx++;
+			end--;
 			break;
+		}
 		}
 
 		// 2) Middle steps (for all types) does nothing for deletions
@@ -225,6 +229,8 @@ void write_rec(const bd::VG &g, pgv::VcfRec &r, const std::string &chrom,
 
 	// if (dbg)
 	//	std::exit(1);
+
+	// std::exit(1);
 
 	return;
 }
