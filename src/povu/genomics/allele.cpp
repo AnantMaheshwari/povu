@@ -2,8 +2,10 @@
 
 #include <csignal> // for raise, SIGINT
 
+#include <cstdint>
 #include <cstdio>
-#include <cstdlib>	  // for exit, EXIT_FAILURE
+#include <cstdlib> // for exit, EXIT_FAILURE
+#include <iostream>
 #include <liteseq/refs.h> // for ref_walk, ref
 #include <map>		  // for map
 #include <vector>	  // for vector
@@ -192,10 +194,10 @@ bool comp_overlays(const bd::VG &g, const pgt::walk_t &w, pt::idx_t w_idx,
 	return is_tangled;
 }
 
-pt::u32 overlay_leftwards(const lq::ref_walk *ref_w, const pgt::walk_t &graph_w,
-			  const std::vector<pt::idx_t> &vtx_ref_idxs,
-			  pt::u32 ref_w_start_idx, pt::u32 graph_w_start_idx,
-			  pt::u32 len)
+bool overlay_leftwards(const lq::ref_walk *ref_w, const pgt::walk_t &graph_w,
+		       const std::vector<pt::idx_t> &vtx_ref_idxs,
+		       pt::u32 ref_w_start_idx, pt::u32 graph_w_start_idx,
+		       pt::u32 len)
 {
 
 	pt::u32 valid_len{0};
@@ -213,11 +215,11 @@ pt::u32 overlay_leftwards(const lq::ref_walk *ref_w, const pgt::walk_t &graph_w,
 		auto [w_v_id, w_o] = graph_w[graph_w_idx];
 
 		if (ref_v_id != w_v_id || ref_o != w_o)
-			break;
+			return false;
 
 		valid_len++;
 	}
-	return valid_len;
+	return true;
 }
 
 struct overlay_t {
@@ -236,7 +238,8 @@ const pt::u8 SLICE_B_IDX{1};
  */
 std::map<pt::u32, std::vector<overlay_t>>
 overlay(const bd::VG &g, const pgt::walk_t &graph_w,
-	const std::vector<pgr::raw_variant> &variants, pt::u8 sl_idx)
+	const std::set<pt::u32> &graph_walk_refs,
+	const std::vector<pgr::raw_variant> &variants, pt::u8 sl_idx, bool dbg)
 {
 	std::map<pt::u32, std::vector<overlay_t>> ref_to_overlays;
 
@@ -245,19 +248,17 @@ overlay(const bd::VG &g, const pgt::walk_t &graph_w,
 	const pt::u32 GRAPH_W_LEN = graph_w.size();
 	const pt::u32 REF_COUNT = g.get_ref_count();
 
-	for (pt::u32 ref_idx{}; ref_idx < REF_COUNT; ref_idx++) {
+	for (pt::u32 ref_idx : graph_walk_refs) {
 		const lq::ref_walk *ref_w = g.get_ref_vec(ref_idx)->walk;
+
 		for (const pgr::raw_variant &v : variants) {
+
 			auto [sl_a, sl_b, vt_] = v;
 			auto [start, len] = sl_idx == SLICE_A_IDX ? sl_a : sl_b;
 			pgr::var_type_e vt = sl_idx == SLICE_A_IDX
 						     ? vt_
 						     : pgr::covariant(vt_);
 			pgr::var_type_e overlay_vt = vt;
-
-			// look at the end of an insertion
-			// if (len == 0 && vt == pgr::var_type_e::ins)
-			//	len++;
 
 			pt::u32 i{start};
 			pt::u32 N = start + len;
@@ -284,53 +285,32 @@ overlay(const bd::VG &g, const pgt::walk_t &graph_w,
 				}
 			}
 
-			// pgr::var_type_e overlay_vt;
-			// if (vt == pgr::var_type_e::sub)
-			//	overlay_vt = pgr::var_type_e::sub;
-			// else if (vt == pgr::var_type_e::ins)
-			//	if (sl_idx == SLICE_A_IDX)
-			//		overlay_vt = pgr::var_type_e::ins;
-			//	else
-			//		overlay_vt = pgr::covariant(vt);
-			// else if (vt == pgr::var_type_e::del)
-			//	if (sl_idx == SLICE_A_IDX)
-			//		overlay_vt = pgr::var_type_e::del;
-			//	else
-			//		overlay_vt = pgr::covariant(vt);
+			pt::idx_t slice_len = N - i;
 
-			// std::cerr << "i " << i << " N " << N << "\n";
+			if (i > GRAPH_W_LEN)
+				continue;
 
-			for (; i < N; i++) {
-				pt::idx_t slice_len = N - i;
+			auto [v_id, o] = graph_w.at(i);
+			pt::idx_t v_idx = g.v_id_to_idx(v_id);
 
-				if (i > GRAPH_W_LEN)
-					continue;
+			const std::vector<pt::idx_t> &vtx_ref_idxs =
+				g.get_vertex_ref_idxs(v_idx, ref_idx);
 
-				auto [v_id, o] = graph_w.at(i);
-				pt::idx_t v_idx = g.v_id_to_idx(v_id);
+			if (vtx_ref_idxs.empty()) {
+				continue;
+			}
 
-				const std::vector<pt::idx_t> &vtx_ref_idxs =
-					g.get_vertex_ref_idxs(v_idx, ref_idx);
+			for (pt::u32 ref_w_start_idx : vtx_ref_idxs) {
+				bool a = overlay_leftwards(
+					ref_w, graph_w, vtx_ref_idxs,
+					ref_w_start_idx, i, slice_len);
 
-				// if (!vtx_ref_idxs.empty())
-				//	std::cerr << "found vtx ref id" << v_id
-				//		  << " ref_idx " << ref_idx
-				//		  << "\n";
+				if (a) {
+					overlay_t o{
+						i, ref_w_start_idx, slice_len,
+						pgt::or_e::forward, overlay_vt};
 
-				for (pt::u32 ref_w_start_idx : vtx_ref_idxs) {
-					pt::u32 valid_len = overlay_leftwards(
-						ref_w, graph_w, vtx_ref_idxs,
-						ref_w_start_idx, i, slice_len);
-
-					if (valid_len > 1) {
-						overlay_t o{i, ref_w_start_idx,
-							    valid_len,
-							    pgt::or_e::forward,
-							    overlay_vt};
-
-						ref_to_overlays[ref_idx]
-							.push_back(o);
-					}
+					ref_to_overlays[ref_idx].push_back(o);
 				}
 			}
 		}
@@ -340,17 +320,57 @@ overlay(const bd::VG &g, const pgt::walk_t &graph_w,
 }
 
 /**
+ * refs are in a walk if
+ */
+std::set<pt::id_t> refs_in_walk(const bd::VG &g, const pgt::walk_t &walk)
+{
+	pgt::step_t s = walk.front();
+	pgt::step_t t = walk.back();
+
+	auto [s_v_id, s_o] = s;
+	auto [t_v_id, t_o] = t;
+
+	const std::vector<std::vector<pt::idx_t>> &s_vtx_refs =
+		g.get_vertex_refs(s_v_id);
+	const std::vector<std::vector<pt::idx_t>> &t_vtx_refs =
+		g.get_vertex_refs(t_v_id);
+
+	std::set<pt::id_t> graph_walk_refs;
+
+	for (pt::u32 ref_idx{}; ref_idx < g.ref_count(); ref_idx++) {
+		if (s_vtx_refs[ref_idx].empty() || t_vtx_refs[ref_idx].empty())
+			continue;
+
+		graph_walk_refs.insert(ref_idx);
+	}
+
+	return graph_walk_refs;
+}
+
+/**
  * [out] rov_exps: vector of expeditions, one per pairwise variant set
  */
 void comp_overlays2(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 		    const std::vector<pgr::pairwise_variants> &pv,
 		    const pgr::RoV *rov, std::vector<Exp> &rov_exps)
 {
+	// bool dbg = rov->as_str() == ">1546>1551" ? true : false;
+
+	bool dbg = walks.size() > 5 ? true : false;
+
+	if (dbg) {
+	}
+
 	auto foo = [&](const std::map<pt::u32, std::vector<overlay_t>> &x,
 		       pt::u32 w_idx, std::map<pt::id_t, itn_t> &ref_map,
 		       std::map<pt::idx_t, std::set<pt::idx_t>> &walk_to_refs)
+		-> bool
 	{
+		bool is_tangled{false};
 		for (const auto &[ref_idx, overlays] : x) {
+			if (overlays.size() > 1)
+				is_tangled = true;
+
 			walk_to_refs[w_idx].insert(ref_idx);
 			itn_t &itn = ref_map[ref_idx];
 			for (const auto &o : overlays) {
@@ -362,7 +382,45 @@ void comp_overlays2(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 					o.vt});
 			}
 		}
+
+		return is_tangled;
 	};
+
+	if (dbg)
+		volatile int z = 0;
+
+	if (dbg) {
+		std::cerr << "Computing overlays for RoV " << rov->as_str()
+			  << " with " << walks.size() << " walks and "
+			  << pv.size() << " pairwise variants\n";
+
+		std::cerr << "Walks for RoV " << rov->as_str() << ":\n";
+		for (int i = 0; i < walks.size(); ++i) {
+			std::cerr << i << ": " << pgt::to_string(walks[i])
+				  << "\n";
+		}
+	}
+
+	pt::Time::time_point start;
+	pt::Time::time_point end;
+
+	start = pt::Time::now();
+
+	std::map<pt::u32, std::set<pt::id_t>> refs_in_walks;
+	for (pt::u32 w_idx{}; w_idx < walks.size(); ++w_idx) {
+		refs_in_walks[w_idx] = refs_in_walk(g, walks[w_idx]);
+	}
+
+	end = pt::Time::now();
+	auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
+		end - start);
+
+	if (dbg) {
+		std::cerr << __func__
+			  << " Elapsed time (1): " << elapsed.count() << " ns"
+			  << "\n";
+	}
+	start = pt::Time::now();
 
 	for (const rov::pairwise_variants &p : pv) {
 		Exp e(rov);
@@ -372,13 +430,43 @@ void comp_overlays2(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 
 		auto [w1_idx, w2_idx, variants] = p;
 
-		auto x = overlay(g, walks.at(w1_idx), variants, SLICE_A_IDX);
-		foo(x, w1_idx, ref_map, walk_to_refs);
+		if (dbg) {
+			std::cerr << "(" << w1_idx << "," << w2_idx << ")\n";
+			std::cerr << "Variants:\n";
+			for (const pgr::raw_variant &rv : variants) {
+				std::cerr << rv << "\n";
+			}
+		}
 
-		auto y = overlay(g, walks.at(w2_idx), variants, SLICE_B_IDX);
-		foo(y, w2_idx, ref_map, walk_to_refs);
+		auto x = overlay(g, walks.at(w1_idx), refs_in_walks.at(w1_idx),
+				 variants, SLICE_A_IDX, dbg);
+
+		bool is_w1_tangled = foo(x, w1_idx, ref_map, walk_to_refs);
+
+		auto y = overlay(g, walks.at(w2_idx), refs_in_walks.at(w1_idx),
+				 variants, SLICE_B_IDX, dbg);
+
+		bool is_w2_tangled = foo(y, w2_idx, ref_map, walk_to_refs);
+
+		if (is_w1_tangled || is_w2_tangled)
+			e.set_tangled(true);
 
 		rov_exps.emplace_back(std::move(e));
+	}
+
+	// Calculate the elapsed time
+	end = pt::Time::now();
+	elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end -
+								       start);
+
+	// Output the elapsed time in nanoseconds
+	if (dbg)
+		std::cerr << __func__
+			  << " Elapsed time (2): " << elapsed.count() << " ns"
+			  << "\n";
+
+	if (">2597>2621" == rov->as_str()) {
+		std::exit(1);
 	}
 
 	return;
@@ -386,6 +474,7 @@ void comp_overlays2(const bd::VG &g, const std::vector<pgt::walk_t> &walks,
 
 std::vector<Exp> comp_itineraries2(const bd::VG &g, const pgr::RoV &rov)
 {
+
 	const std::vector<pgt::walk_t> &walks = rov.get_walks();
 	const std::vector<pgr::pairwise_variants> &pv = rov.get_irreducibles();
 	const pgr::RoV *rov_ = &rov;

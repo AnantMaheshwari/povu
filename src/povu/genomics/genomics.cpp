@@ -56,7 +56,7 @@ comp_expeditions_serial(const bd::VG &g, const std::vector<pgr::RoV> &all_rovs,
 
 	for (pt::idx_t i = start; i < start + count && i < N; ++i) {
 		const pgr::RoV &rov = all_rovs[i];
-		std::vector<pga::Exp> rov_exps = pga::comp_itineraries2(g, rov);
+		std::vector<pga::Exp> rov_exps = pga::comp_itineraries3(g, rov);
 		for (auto &e : rov_exps) {
 			if (e.is_tangled())
 				put::untangle_ref_walks(e);
@@ -219,6 +219,8 @@ void gen_vcf_rec_map(const std::vector<pvst::Tree> &pvsts, bd::VG &g,
 			const pt::idx_t end = std::min(base + CHUNK_SIZE, N);
 			const pt::idx_t count = end - base;
 
+			pt::idx_t chunk_num = (base / CHUNK_SIZE) + 1;
+
 			if (app_config.show_progress()) { // update progress bar
 				prog_msg.clear();
 				pt::idx_t chunk_num = (base / CHUNK_SIZE) + 1;
@@ -231,14 +233,21 @@ void gen_vcf_rec_map(const std::vector<pvst::Tree> &pvsts, bd::VG &g,
 					chunk_num + 1, CHUNK_COUNT));
 			}
 
+			// std::cerr << "Computing expeditions...\n";
+
 			exps = comp_expeditions_serial(g, all_rovs, base,
 						       count);
 
 			// exps = comp_expeditions_work_steal(
 			//	g, all_rovs, base, count, pool, outer, inner);
 
+			// std::cerr << "Generating VCF records...\n";
+
 			pgv::VcfRecIdx rs =
 				pgv::gen_vcf_records(g, exps, to_call_ref_ids);
+
+			// std::cerr << "Generated VCF records for variants\n";
+
 			if (!q.push(std::move(rs))) {
 				break; // queue was closed early
 			}
@@ -249,6 +258,8 @@ void gen_vcf_rec_map(const std::vector<pvst::Tree> &pvsts, bd::VG &g,
 		q.close(); // make sure consumers wake up on errors
 		throw;
 	}
+
+	std::cerr << "Finished producing VCF records\n";
 
 	q.close(); // we're done
 }

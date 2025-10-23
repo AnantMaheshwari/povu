@@ -93,6 +93,25 @@ struct allele_slice_t {
 
 		return s;
 	}
+
+	[[nodiscard]]
+	std::string as_str(bool is_ref) const
+	{
+		pt::idx_t ref_step_idx =
+			this->get_or() == pgt::or_e::forward
+				? this->ref_start_idx
+				: this->ref_start_idx - len + 1;
+		pt::idx_t end = ref_step_idx + this->len;
+		std::string s;
+
+		pt::u32 i = ref_step_idx;
+		pt::u32 N = end;
+
+		for (i; i < N; i++)
+			s += this->get_step(i).as_str();
+
+		return s;
+	}
 };
 
 /**
@@ -113,16 +132,19 @@ struct itn_t {
 	// ---------
 	// getter(s)
 	// ---------
+	[[nodiscard]]
 	pt::idx_t at_count() const
 	{
 		return this->it_.size();
 	}
 
+	[[nodiscard]]
 	const std::vector<allele_slice_t> &get_ats() const
 	{
 		return this->it_;
 	}
 
+	[[nodiscard]]
 	const allele_slice_t &get_at(pt::idx_t at_idx) const
 	{
 		return this->it_[at_idx];
@@ -133,7 +155,7 @@ struct itn_t {
 	// ---------
 	void append_at(allele_slice_t &&s)
 	{
-		this->it_.emplace_back(std::move(s));
+		this->it_.emplace_back(s);
 	}
 };
 
@@ -313,6 +335,7 @@ public:
 	}
 };
 
+std::vector<Exp> comp_itineraries3(const bd::VG &g, const pgr::RoV &rov);
 std::vector<Exp> comp_itineraries2(const bd::VG &g, const pgr::RoV &rov);
 void comp_itineraries(const bd::VG &g, Exp &exp);
 

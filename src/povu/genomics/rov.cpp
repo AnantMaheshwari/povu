@@ -119,7 +119,8 @@ void find_rovs(const std::vector<pt::u32> &lu, pairwise_variants &pv)
 		if (t == sub || alt_start == 0) {
 			if (t != ins)
 				alt_len--;
-			alt_start++;
+			if (t != ins)
+				alt_start++;
 		}
 
 		return {alt_start, alt_len};
@@ -132,7 +133,7 @@ void find_rovs(const std::vector<pt::u32> &lu, pairwise_variants &pv)
 			pt::slice_t sl = find_context(lu, i);
 			var_type_e t = is_ins(i, sl) ? ins : sub;
 			pt::slice_t alt_sl = find_alt_start(sl, t, i);
-			pv.add_variant({sl, alt_sl, t});
+			pv.add_variant({sl, alt_sl, covariant(t)});
 			i += sl.len;
 			continue;
 		}
@@ -142,7 +143,7 @@ void find_rovs(const std::vector<pt::u32> &lu, pairwise_variants &pv)
 			pt::slice_t sl{i - 1, 0};
 			pt::slice_t alt_sl = {lu[i - 1] + 1,
 					      lu[i] - lu[i - 1] - 1};
-			pv.add_variant({sl, alt_sl, del});
+			pv.add_variant({sl, alt_sl, covariant(del)});
 		}
 
 		i++;
@@ -166,7 +167,6 @@ pairwise_variants lineup_pairs(const ptg::walk_t &w1, const ptg::walk_t &w2,
 
 pairwise_variants compare_pair(const RoV &r, pt::u32 i, pt::u32 j)
 {
-
 	pairwise_variants pv(i, j);
 	lineup_pairs(r.get_walk(i), r.get_walk(j), pv);
 
@@ -175,6 +175,15 @@ pairwise_variants compare_pair(const RoV &r, pt::u32 i, pt::u32 j)
 
 void find_hidden(RoV &r)
 {
+	// bool dbg = r.as_str() == ">1546>1551" ? true : false;
+	// dbg = false;
+	// for (int i = 0; i < r.get_walks().size(); i++) {
+	//	if (dbg) {
+	//		const ptg::walk_t &w = r.get_walk(i);
+	//		std::cerr << i << ": " << pgt::to_string(w) << "\n";
+	//	}
+	// }
+
 	const pt::u32 WC = r.walk_count();
 	std::set<pt::up_t<pt::u32>> seen;
 	for (pt::u32 i{}; i < WC; i++) {
@@ -188,6 +197,10 @@ void find_hidden(RoV &r)
 			seen.insert(p);
 		}
 	}
+
+	// if (dbg)
+	//	for (auto &pv : r.get_irreducibles())
+	//		std::cerr << pv << "\n";
 }
 
 // ------------

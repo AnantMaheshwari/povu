@@ -66,6 +66,12 @@ struct pairwise_variants {
 	std::vector<raw_variant> variants;
 
 	[[nodiscard]]
+	pt::u32 size() const noexcept
+	{
+		return static_cast<pt::u32>(this->variants.size());
+	}
+
+	[[nodiscard]]
 	pairwise_variants(pt::u32 w1_idx, pt::u32 w2_idx) noexcept
 	    : walk_a(w1_idx), walk_b(w2_idx), variants()
 	{}

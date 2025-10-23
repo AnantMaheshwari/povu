@@ -89,7 +89,13 @@ std::map<pt::idx_t, std::vector<VcfRec>>
 gen_exp_vcf_recs(const bd::VG &g, const pga::Exp &exp,
 		 const std::set<pt::id_t> &to_call_ref_ids)
 {
-	// std::cerr << "gen rec: " << exp.id() << ": ";
+	auto start = pt::Time::now();
+
+	bool dbg = exp.id() == ">2376>2379" ? true : false;
+	dbg = false;
+
+	if (dbg)
+		std::cerr << exp.id() << " generating VCF records...\n";
 
 	std::map<pt::idx_t, std::vector<VcfRec>> exp_vcf_recs;
 
@@ -155,8 +161,10 @@ gen_exp_vcf_recs(const bd::VG &g, const pga::Exp &exp,
 			pt::idx_t alt_walk_ref_count =
 				exp.get_ref_idxs_for_walk(alt_walk_idx).size();
 
-			pgr::var_type_e variant_type = det_var_type(
-				ref_allele_slice, alt_allele_slice);
+			// pgr::var_type_e variant_type = det_var_type(
+			//	ref_allele_slice, alt_allele_slice);
+
+			pgr::var_type_e variant_type = ref_allele_slice.vt;
 
 			std::pair<pt::idx_t, pgr::var_type_e> key =
 				std::make_pair(ref_ref_id, variant_type);
@@ -171,7 +179,7 @@ gen_exp_vcf_recs(const bd::VG &g, const pga::Exp &exp,
 					       exp.id(),
 					       ref_allele_slice,
 					       pvst_vtx_ptr->get_height(),
-					       ref_allele_slice.vt,
+					       variant_type,
 					       exp.is_tangled(),
 					       ref_walk_ref_count,
 					       g.get_blank_genotype_cols()};
@@ -191,6 +199,18 @@ gen_exp_vcf_recs(const bd::VG &g, const pga::Exp &exp,
 		auto [ref_ref_id, _] = k;
 		exp_vcf_recs[ref_ref_id].emplace_back(std::move(r));
 	}
+
+	auto end = pt::Time::now();
+
+	// Calculate the elapsed time
+	auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
+		end - start);
+
+	// Output the elapsed time in nanoseconds
+	if (dbg)
+		std::cerr << __func__ << " Elapsed time: " << elapsed.count()
+			  << " ns"
+			  << "\n";
 
 	return exp_vcf_recs;
 }
