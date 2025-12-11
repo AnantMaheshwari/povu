@@ -90,6 +90,18 @@ std::optional<genomic_region> parse_genomic_region(const std::string &region_str
 	std::string start_str = range_str.substr(0, dash_pos);
 	std::string end_str = range_str.substr(dash_pos + 1);
 
+	// Check for empty strings
+	if (start_str.empty()) {
+		ERR("Invalid region format '{}': empty start position",
+		    region_str);
+		return std::nullopt;
+	}
+	if (end_str.empty()) {
+		ERR("Invalid region format '{}': empty end position",
+		    region_str);
+		return std::nullopt;
+	}
+
 	// Validate that start and end are numeric
 	for (char c : start_str) {
 		if (!std::isdigit(c)) {
@@ -372,8 +384,8 @@ bool pvst_vertex_overlaps_region(const bd::VG &g, const pvst::VertexBase *pvst_v
 
 void find_pvst_rovs(const bd::VG &g, const pvst::Tree &pvst,
 		    const std::set<pt::u32> &colored_vtxs, std::vector<RoV> &rs,
-		    const std::optional<genomic_region> &region = std::nullopt,
-		    const std::optional<pt::id_t> &region_ref_id = std::nullopt)
+		    const std::optional<genomic_region> &region,
+		    const std::optional<pt::id_t> &region_ref_id)
 {
 	// auto can_be_non_planar = [](const pvst::vf_e fam) -> bool
 	// {

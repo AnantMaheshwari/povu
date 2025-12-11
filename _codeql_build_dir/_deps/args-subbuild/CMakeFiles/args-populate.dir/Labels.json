@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/CMakeFiles/args-populate"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/CMakeFiles/args-populate.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/CMakeFiles/args-populate-complete.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/args-populate-prefix/src/args-populate-stamp/args-populate-build.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/args-populate-prefix/src/args-populate-stamp/args-populate-configure.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/args-populate-prefix/src/args-populate-stamp/args-populate-download.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/args-populate-prefix/src/args-populate-stamp/args-populate-install.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/args-populate-prefix/src/args-populate-stamp/args-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/args-populate-prefix/src/args-populate-stamp/args-populate-patch.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/args-populate-prefix/src/args-populate-stamp/args-populate-test.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-subbuild/args-populate-prefix/src/args-populate-stamp/args-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"args-populate"
+		],
+		"name" : "args-populate"
+	}
+}

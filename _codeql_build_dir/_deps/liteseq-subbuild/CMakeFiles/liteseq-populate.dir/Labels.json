@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/CMakeFiles/liteseq-populate"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/CMakeFiles/liteseq-populate.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/CMakeFiles/liteseq-populate-complete.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/liteseq-populate-prefix/src/liteseq-populate-stamp/liteseq-populate-build.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/liteseq-populate-prefix/src/liteseq-populate-stamp/liteseq-populate-configure.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/liteseq-populate-prefix/src/liteseq-populate-stamp/liteseq-populate-download.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/liteseq-populate-prefix/src/liteseq-populate-stamp/liteseq-populate-install.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/liteseq-populate-prefix/src/liteseq-populate-stamp/liteseq-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/liteseq-populate-prefix/src/liteseq-populate-stamp/liteseq-populate-patch.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/liteseq-populate-prefix/src/liteseq-populate-stamp/liteseq-populate-test.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-subbuild/liteseq-populate-prefix/src/liteseq-populate-stamp/liteseq-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"liteseq-populate"
+		],
+		"name" : "liteseq-populate"
+	}
+}

@@ -1,0 +1,6 @@
+#pragma once
+#define LITESEQ_VERSION_MAJOR 0
+#define LITESEQ_VERSION_MINOR 0
+#define LITESEQ_VERSION_PATCH 1
+#define LITESEQ_VERSION_STRING "0.0.1"
+#define LITESEQ_VERSION ((0) * 10000 + (0) * 100 + (1))

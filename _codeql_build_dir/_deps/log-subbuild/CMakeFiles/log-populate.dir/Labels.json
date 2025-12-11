@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/CMakeFiles/log-populate"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/CMakeFiles/log-populate.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/CMakeFiles/log-populate-complete.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/log-populate-prefix/src/log-populate-stamp/log-populate-build.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/log-populate-prefix/src/log-populate-stamp/log-populate-configure.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/log-populate-prefix/src/log-populate-stamp/log-populate-download.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/log-populate-prefix/src/log-populate-stamp/log-populate-install.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/log-populate-prefix/src/log-populate-stamp/log-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/log-populate-prefix/src/log-populate-stamp/log-populate-patch.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/log-populate-prefix/src/log-populate-stamp/log-populate-test.rule"
+		},
+		{
+			"file" : "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-subbuild/log-populate-prefix/src/log-populate-stamp/log-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"log-populate"
+		],
+		"name" : "log-populate"
+	}
+}

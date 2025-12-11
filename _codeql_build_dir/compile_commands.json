@@ -1,0 +1,302 @@
+[
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/algorithms/concealed.cpp.o -c /home/runner/work/povu/povu/src/povu/algorithms/concealed.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/algorithms/concealed.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/algorithms/concealed.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/algorithms/midi.cpp.o -c /home/runner/work/povu/povu/src/povu/algorithms/midi.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/algorithms/midi.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/algorithms/midi.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/algorithms/smothered.cpp.o -c /home/runner/work/povu/povu/src/povu/algorithms/smothered.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/algorithms/smothered.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/algorithms/smothered.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/algorithms/parallel.cpp.o -c /home/runner/work/povu/povu/src/povu/algorithms/parallel.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/algorithms/parallel.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/algorithms/parallel.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/algorithms/tiny.cpp.o -c /home/runner/work/povu/povu/src/povu/algorithms/tiny.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/algorithms/tiny.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/algorithms/tiny.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/algorithms/flubbles.cpp.o -c /home/runner/work/povu/povu/src/povu/algorithms/flubbles.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/algorithms/flubbles.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/algorithms/flubbles.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/align/align.cpp.o -c /home/runner/work/povu/povu/src/povu/align/align.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/align/align.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/align/align.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/common/utils.cpp.o -c /home/runner/work/povu/povu/src/povu/common/utils.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/common/utils.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/common/utils.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/overlay/overlay.cpp.o -c /home/runner/work/povu/povu/src/povu/overlay/overlay.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/overlay/overlay.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/overlay/overlay.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/overlay/generic.cpp.o -c /home/runner/work/povu/povu/src/povu/overlay/generic.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/overlay/generic.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/overlay/generic.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/overlay/overlay_tiny.cpp.o -c /home/runner/work/povu/povu/src/povu/overlay/overlay_tiny.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/overlay/overlay_tiny.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/overlay/overlay_tiny.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/overlay/sne.cpp.o -c /home/runner/work/povu/povu/src/povu/overlay/sne.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/overlay/sne.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/overlay/sne.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/overlay/shared.cpp.o -c /home/runner/work/povu/povu/src/povu/overlay/shared.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/overlay/shared.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/overlay/shared.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/variation/rov.cpp.o -c /home/runner/work/povu/povu/src/povu/variation/rov.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/variation/rov.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/variation/rov.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/variation/non_planar.cpp.o -c /home/runner/work/povu/povu/src/povu/variation/non_planar.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/variation/non_planar.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/variation/non_planar.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/variation/color.cpp.o -c /home/runner/work/povu/povu/src/povu/variation/color.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/variation/color.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/variation/color.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/genomics/allele.cpp.o -c /home/runner/work/povu/povu/src/povu/genomics/allele.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/genomics/allele.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/genomics/allele.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/genomics/genomics.cpp.o -c /home/runner/work/povu/povu/src/povu/genomics/genomics.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/genomics/genomics.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/genomics/genomics.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/genomics/graph.cpp.o -c /home/runner/work/povu/povu/src/povu/genomics/graph.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/genomics/graph.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/genomics/graph.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/genomics/untangle.cpp.o -c /home/runner/work/povu/povu/src/povu/genomics/untangle.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/genomics/untangle.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/genomics/untangle.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/genomics/vcf.cpp.o -c /home/runner/work/povu/povu/src/povu/genomics/vcf.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/genomics/vcf.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/genomics/vcf.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/graph/types.cpp.o -c /home/runner/work/povu/povu/src/povu/graph/types.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/graph/types.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/graph/types.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/graph/bidirected.cpp.o -c /home/runner/work/povu/povu/src/povu/graph/bidirected.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/graph/bidirected.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/graph/bidirected.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/graph/bracket_list.cpp.o -c /home/runner/work/povu/povu/src/povu/graph/bracket_list.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/graph/bracket_list.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/graph/bracket_list.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/graph/spanning_tree.cpp.o -c /home/runner/work/povu/povu/src/povu/graph/spanning_tree.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/graph/spanning_tree.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/graph/spanning_tree.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/graph/tree_utils.cpp.o -c /home/runner/work/povu/povu/src/povu/graph/tree_utils.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/graph/tree_utils.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/graph/tree_utils.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/io/from_pvst.cpp.o -c /home/runner/work/povu/povu/src/povu/io/from_pvst.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/io/from_pvst.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/io/from_pvst.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/io/to_pvst.cpp.o -c /home/runner/work/povu/povu/src/povu/io/to_pvst.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/io/to_pvst.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/io/to_pvst.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/io/from_gfa.cpp.o -c /home/runner/work/povu/povu/src/povu/io/from_gfa.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/io/from_gfa.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/io/from_gfa.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/io/common.cpp.o -c /home/runner/work/povu/povu/src/povu/io/common.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/io/common.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/io/common.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -Dpovulib_EXPORTS -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povulib.dir/src/povu/io/to_vcf.cpp.o -c /home/runner/work/povu/povu/src/povu/io/to_vcf.cpp",
+  "file": "/home/runner/work/povu/povu/src/povu/io/to_vcf.cpp",
+  "output": "CMakeFiles/povulib.dir/src/povu/io/to_vcf.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src -O3 -DNDEBUG -std=gnu++17 -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povu.dir/app/cli/cli.cpp.o -c /home/runner/work/povu/povu/app/cli/cli.cpp",
+  "file": "/home/runner/work/povu/povu/app/cli/cli.cpp",
+  "output": "CMakeFiles/povu.dir/app/cli/cli.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src -O3 -DNDEBUG -std=gnu++17 -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povu.dir/app/subcommand/decompose.cpp.o -c /home/runner/work/povu/povu/app/subcommand/decompose.cpp",
+  "file": "/home/runner/work/povu/povu/app/subcommand/decompose.cpp",
+  "output": "CMakeFiles/povu.dir/app/subcommand/decompose.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src -O3 -DNDEBUG -std=gnu++17 -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povu.dir/app/subcommand/info.cpp.o -c /home/runner/work/povu/povu/app/subcommand/info.cpp",
+  "file": "/home/runner/work/povu/povu/app/subcommand/info.cpp",
+  "output": "CMakeFiles/povu.dir/app/subcommand/info.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src -O3 -DNDEBUG -std=gnu++17 -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povu.dir/app/subcommand/call.cpp.o -c /home/runner/work/povu/povu/app/subcommand/call.cpp",
+  "file": "/home/runner/work/povu/povu/app/subcommand/call.cpp",
+  "output": "CMakeFiles/povu.dir/app/subcommand/call.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src -O3 -DNDEBUG -std=gnu++17 -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povu.dir/app/subcommand/gfa2vcf.cpp.o -c /home/runner/work/povu/povu/app/subcommand/gfa2vcf.cpp",
+  "file": "/home/runner/work/povu/povu/app/subcommand/gfa2vcf.cpp",
+  "output": "CMakeFiles/povu.dir/app/subcommand/gfa2vcf.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -DRELEASE -I/home/runner/work/povu/povu/include -I/home/runner/work/povu/povu/app -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src -O3 -DNDEBUG -std=gnu++17 -Werror -Wall -O3 -Wno-system-headers -o CMakeFiles/povu.dir/app/main.cpp.o -c /home/runner/work/povu/povu/app/main.cpp",
+  "file": "/home/runner/work/povu/povu/app/main.cpp",
+  "output": "CMakeFiles/povu.dir/app/main.cpp.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++  -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src -O3 -DNDEBUG -std=gnu++11 -Werror -o CMakeFiles/gitlike.dir/examples/gitlike.cxx.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src/examples/gitlike.cxx",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src/examples/gitlike.cxx",
+  "output": "_deps/args-build/CMakeFiles/gitlike.dir/examples/gitlike.cxx.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++  -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src -O3 -DNDEBUG -std=gnu++11 -Werror -o CMakeFiles/completion.dir/examples/completion.cxx.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src/examples/completion.cxx",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/args-src/examples/completion.cxx",
+  "output": "_deps/args-build/CMakeFiles/completion.dir/examples/completion.cxx.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++  -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -o CMakeFiles/fmt.dir/src/format.cc.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/src/format.cc",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/src/format.cc",
+  "output": "_deps/fmt-build/CMakeFiles/fmt.dir/src/format.cc.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++  -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/include -O3 -DNDEBUG -std=gnu++17 -fPIC -Werror -o CMakeFiles/fmt.dir/src/os.cc.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/src/os.cc",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/fmt-src/src/os.cc",
+  "output": "_deps/fmt-build/CMakeFiles/fmt.dir/src/os.cc.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DRELEASE -Dliteseq_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=c17 -fPIC -Werror -o CMakeFiles/liteseq.dir/src/internal/lq_utils.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal/lq_utils.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal/lq_utils.c",
+  "output": "_deps/liteseq-build/CMakeFiles/liteseq.dir/src/internal/lq_utils.c.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DRELEASE -Dliteseq_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=c17 -fPIC -Werror -o CMakeFiles/liteseq.dir/src/internal/lq_io.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal/lq_io.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal/lq_io.c",
+  "output": "_deps/liteseq-build/CMakeFiles/liteseq.dir/src/internal/lq_io.c.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DRELEASE -Dliteseq_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=c17 -fPIC -Werror -o CMakeFiles/liteseq.dir/src/gfa.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/gfa.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/gfa.c",
+  "output": "_deps/liteseq-build/CMakeFiles/liteseq.dir/src/gfa.c.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DRELEASE -Dliteseq_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=c17 -fPIC -Werror -o CMakeFiles/liteseq.dir/src/gfa_l.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/gfa_l.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/gfa_l.c",
+  "output": "_deps/liteseq-build/CMakeFiles/liteseq.dir/src/gfa_l.c.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DRELEASE -Dliteseq_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=c17 -fPIC -Werror -o CMakeFiles/liteseq.dir/src/gfa_s.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/gfa_s.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/gfa_s.c",
+  "output": "_deps/liteseq-build/CMakeFiles/liteseq.dir/src/gfa_s.c.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DRELEASE -Dliteseq_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=c17 -fPIC -Werror -o CMakeFiles/liteseq.dir/src/refs/ref_impl.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/refs/ref_impl.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/refs/ref_impl.c",
+  "output": "_deps/liteseq-build/CMakeFiles/liteseq.dir/src/refs/ref_impl.c.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DRELEASE -Dliteseq_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=c17 -fPIC -Werror -o CMakeFiles/liteseq.dir/src/refs/ref_walk.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/refs/ref_walk.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/refs/ref_walk.c",
+  "output": "_deps/liteseq-build/CMakeFiles/liteseq.dir/src/refs/ref_walk.c.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DRELEASE -Dliteseq_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/include -I/home/runner/work/povu/povu/_codeql_build_dir/generated -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/internal -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=c17 -fPIC -Werror -o CMakeFiles/liteseq.dir/src/refs/ref_name.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/refs/ref_name.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/liteseq-src/src/refs/ref_name.c",
+  "output": "_deps/liteseq-build/CMakeFiles/liteseq.dir/src/refs/ref_name.c.o"
+},
+{
+  "directory": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-build",
+  "command": "/home/runner/work/povu/.codeql-scratch/dbs/cpp/working/autobuild/bin/cc -DLOGC__USER_SETTINGS -DLOG_DEFAULT_STREAM=stderr -DLOG_FILE_INFO -DLOG_USE_COLOR -DRELEASE -Dlog_EXPORTS -I/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/include -O3 -DNDEBUG -std=gnu99 -fPIC -Werror -Wall -O3 -w -o CMakeFiles/log.dir/src/log.c.o -c /home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/src/log.c",
+  "file": "/home/runner/work/povu/povu/_codeql_build_dir/_deps/log-src/src/log.c",
+  "output": "_deps/log-build/CMakeFiles/log.dir/src/log.c.o"
+}
+]
