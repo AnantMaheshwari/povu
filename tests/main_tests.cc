@@ -5,5 +5,6 @@
 #include "./integration_tests/pvst_tests.cc"
 
 // unit tests
+#include "./unit_tests/genomic_region_tests.cc"
 #include "./unit_tests/rov_tests.cc"
 #include "./unit_tests/spanning_tree_tests.cc"
