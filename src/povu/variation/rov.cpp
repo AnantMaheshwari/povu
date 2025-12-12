@@ -367,19 +367,17 @@ bool pvst_vertex_overlaps_region(const bd::VG &g, const pvst::VertexBase *pvst_v
 
 	// Check if any step index falls within the region
 	// Step indices represent positions along the reference path
-	for (pt::idx_t step : start_steps) {
-		if (step >= region.start && step < region.end) {
-			return true;
+	auto check_overlap = [&](const std::vector<pt::idx_t> &steps) -> bool
+	{
+		for (pt::idx_t step : steps) {
+			if (step >= region.start && step < region.end) {
+				return true;
+			}
 		}
-	}
+		return false;
+	};
 
-	for (pt::idx_t step : end_steps) {
-		if (step >= region.start && step < region.end) {
-			return true;
-		}
-	}
-
-	return false;
+	return check_overlap(start_steps) || check_overlap(end_steps);
 }
 
 void find_pvst_rovs(const bd::VG &g, const pvst::Tree &pvst,
